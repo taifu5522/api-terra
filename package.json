@@ -6,11 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --hot",
-    "app":"node --harmony app.js"
+    "app": "node --harmony app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "antd": "^2.9.1",
     "co": "^4.6.0",
     "co-body": "^4.2.0",
     "co-views": "^2.1.0",
@@ -21,6 +22,8 @@
     "koa-webpack-dev-middleware": "^1.3.0",
     "koa-webpack-hot-middleware": "^1.0.3",
     "mongoose": "^4.7.2",
+    "react-redux": "^5.0.4",
+    "redux-thunk": "^2.2.0",
     "swig": "^1.4.2"
   },
   "devDependencies": {

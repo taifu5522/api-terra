@@ -6,16 +6,11 @@ module.exports = {
 	},
 	module: {
 		loaders: [
+            {test: /\.css$/, loader:'style-loader!css-loader'},
+            {test: /\.(gif|jpg|jpeg|png|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=30000&name=resource/[name].[ext]'},
+            {test: /\.string$/, loader: 'html-loader' },
 			{
-				test: /\.jsx?$/,
-				loader: 'jsx-loader'
-			},
-			{
-				test: /\.css$/,
-				loader: "style!css"
-			},
-			{
-				test: /\.js$/,
+				test: /\.js|\.jsx$/,
 				exclude: /(node_modules|bower_components)/,
 				loader: 'babel-loader',
 				query: {

@@ -12,6 +12,9 @@ class publics{
             console.log(e)
         }
     }
+    isType(obj,type){
+        return type ? Object.prototype.toString.call(obj) === `[object ${type}]` : Object.prototype.toString.call(obj).split(' ')[1].split(']')[0];
+    }
 }
 
-export const publicObj = new publics();
+export default publics;
