@@ -1,9 +1,22 @@
+/**
+ * @Author: wangxu <ceekey>
+ * @Date:   2017-04-20 19:01:41
+ * @Email:  xu.wang@ishansong.com
+ * @Project: terra
+ * @Filename: app.js
+ * @Last modified by:   ceekey
+ * @Last modified time: 2017-04-20 19:02:51
+ */
+
+
+
 'use strict';
+
 let koa = require('koa');
 let app = koa();
 let router = require('./routes/router').router;
 var logger = require('koa-logger')
- 
+
 //webpack hot dev server
 let webpack = require('webpack');
 let webpackDevMiddleware = require('koa-webpack-dev-middleware');
