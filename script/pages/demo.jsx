@@ -161,7 +161,6 @@ export default class Demo extends React.Component {
         }else{//改类型
             this.changeType(datakey,type);
         }
-        console.log(this.dataStore.getData())
         this.setState(Object.assign({},this.state,{
             data:this.dataStore.getData()
         }))
@@ -170,13 +169,7 @@ export default class Demo extends React.Component {
     /**
      * 增加字段
      * @param {字段索引} key 
-     * @param {新增字段名} newKey 
      */
-    addField(key,newKey){
-        this.dataStore.add(`${key}.val.${newKey}`,{
-            type:'Null'
-        });
-    }
     addItemFiled(key){
         function diag(){
             var str=prompt("请输入字段名");
@@ -188,15 +181,14 @@ export default class Demo extends React.Component {
             return;
         }
         let keyName = this.getKeyName(key);
-        this.addField(keyName, newKeyName);
+        this.dataStore.add(`${keyName}.val.${newKeyName}`,{
+            type:'Null'
+        });
         this.setState(Object.assign({},this.state,{
             data:this.dataStore.getData()
         }))
     }
     ////////////////////////////////////////////////////////////////////////////////
-    typeChange(name,val){
-        this.fieldChange(name,val)
-    }
     getEidt(obj,name,n){
         n = n || 0;
         let arg = arguments['4'] ? `${arguments[3]}:${arguments[4]}` : arguments['3'] ? arguments['3'] : name;
@@ -205,7 +197,7 @@ export default class Demo extends React.Component {
             getKeys={arg}
             offset={n}
             type={obj.type} 
-            typeChange={(name,val)=>{this.typeChange(name,val)}} 
+            typeChange={(name,val)=>{this.fieldChange(name,val)}} 
             onChange={(e,name,type)=>{this.fieldChange(e,name,type)}} 
             data={obj} 
             name={name} 
