@@ -219,6 +219,9 @@ export default class Demo extends React.Component {
             name:name,
             data:this.state.data
         }
+        fetch(`/doc/save?api=${JSON.stringify(api)}`).then(res=>res.json()).then(data=>{
+            console.log(data)
+        })
     }
     render(){
         let n = 0;

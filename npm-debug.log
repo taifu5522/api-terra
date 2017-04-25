@@ -1,232 +1,40 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/local/bin/node',
-1 verbose cli   '/usr/local/bin/npm',
-1 verbose cli   'install',
-1 verbose cli   'obajs',
-1 verbose cli   '--save' ]
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'app' ]
 2 info using npm@2.15.5
 3 info using node@v4.4.5
-4 verbose install initial load of /Users/iss/api-terra/package.json
-5 warn package.json quchao@1.0.0 No description
-6 warn package.json quchao@1.0.0 No repository field.
-7 warn package.json quchao@1.0.0 No README data
-8 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/antd/package.json
-9 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/babel/package.json
-10 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/babel-cli/package.json
-11 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/babel-core/package.json
-12 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/babel-loader/package.json
-13 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/babel-preset-es2015/package.json
-14 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/babel-preset-react/package.json
-15 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/co/package.json
-16 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/co-body/package.json
-17 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/co-views/package.json
-18 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/css-loader/package.json
-19 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/file-loader/package.json
-20 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/html-loader/package.json
-21 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/jsx-loader/package.json
-22 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/koa/package.json
-23 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/koa-logger/package.json
-24 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/koa-router/package.json
-25 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/koa-static/package.json
-26 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/koa-webpack-dev-middleware/package.json
-27 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/koa-webpack-hot-middleware/package.json
-28 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/mongoose/package.json
-29 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/node-sass/package.json
-30 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/obajs/package.json
-31 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/react/package.json
-32 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/react-dom/package.json
-33 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/react-redux/package.json
-34 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/react-router/package.json
-35 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/redux/package.json
-36 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/redux-devtools/package.json
-37 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/redux-thunk/package.json
-38 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/sass-loader/package.json
-39 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/style-loader/package.json
-40 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/swig/package.json
-41 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/url-loader/package.json
-42 verbose installManyTop reading scoped package data from /Users/iss/api-terra/node_modules/webpack/package.json
-43 info package.json jsx-loader@0.13.2 license should be a valid SPDX license expression
-44 info package.json koa-webpack-hot-middleware@1.0.3 No license field.
-45 info package.json koa-webpack-dev-middleware@1.4.5 No license field.
-46 verbose readDependencies loading dependencies from /Users/iss/api-terra/package.json
-47 verbose install obajs is installed as 0.1.1
-48 silly cache add args [ 'obajs', null ]
-49 verbose cache add spec obajs
-50 silly cache add parsed spec Result {
-50 silly cache add   raw: 'obajs',
-50 silly cache add   scope: null,
-50 silly cache add   name: 'obajs',
-50 silly cache add   rawSpec: '',
-50 silly cache add   spec: 'latest',
-50 silly cache add   type: 'tag' }
-51 silly addNamed obajs@latest
-52 verbose addNamed "latest" is being treated as a dist-tag for obajs
-53 info addNameTag [ 'obajs', 'latest' ]
-54 silly mapToRegistry name obajs
-55 silly mapToRegistry using default registry
-56 silly mapToRegistry registry https://registry.npmjs.org/
-57 silly mapToRegistry data Result {
-57 silly mapToRegistry   raw: 'obajs',
-57 silly mapToRegistry   scope: null,
-57 silly mapToRegistry   name: 'obajs',
-57 silly mapToRegistry   rawSpec: '',
-57 silly mapToRegistry   spec: 'latest',
-57 silly mapToRegistry   type: 'tag' }
-58 silly mapToRegistry uri https://registry.npmjs.org/obajs
-59 verbose addNameTag registry:https://registry.npmjs.org/obajs not in flight; fetching
-60 verbose request uri https://registry.npmjs.org/obajs
-61 verbose request no auth needed
-62 info attempt registry request try #1 at 18:47:49
-63 verbose request id b1efd10f58e0fcfb
-64 verbose etag W/"587b0666-113b"
-65 verbose lastModified Sun, 15 Jan 2017 05:19:34 GMT
-66 http request GET https://registry.npmjs.org/obajs
-67 http 304 https://registry.npmjs.org/obajs
-68 verbose headers { date: 'Mon, 24 Apr 2017 10:47:52 GMT',
-68 verbose headers   via: '1.1 varnish',
-68 verbose headers   'cache-control': 'max-age=300',
-68 verbose headers   etag: 'W/"587b0666-113b"',
-68 verbose headers   age: '33',
-68 verbose headers   connection: 'keep-alive',
-68 verbose headers   'x-served-by': 'cache-nrt6126-NRT',
-68 verbose headers   'x-cache': 'HIT',
-68 verbose headers   'x-cache-hits': '1',
-68 verbose headers   'x-timer': 'S1493030872.292995,VS0,VE0',
-68 verbose headers   vary: 'Accept-Encoding' }
-69 silly get cb [ 304,
-69 silly get   { date: 'Mon, 24 Apr 2017 10:47:52 GMT',
-69 silly get     via: '1.1 varnish',
-69 silly get     'cache-control': 'max-age=300',
-69 silly get     etag: 'W/"587b0666-113b"',
-69 silly get     age: '33',
-69 silly get     connection: 'keep-alive',
-69 silly get     'x-served-by': 'cache-nrt6126-NRT',
-69 silly get     'x-cache': 'HIT',
-69 silly get     'x-cache-hits': '1',
-69 silly get     'x-timer': 'S1493030872.292995,VS0,VE0',
-69 silly get     vary: 'Accept-Encoding' } ]
-70 verbose etag https://registry.npmjs.org/obajs from cache
-71 verbose get saving obajs to /Users/iss/.npm/registry.npmjs.org/obajs/.cache.json
-72 verbose correctMkdir /Users/iss/.npm correctMkdir not in flight; initializing
-73 silly addNameTag next cb for obajs with tag latest
-74 silly addNamed obajs@0.1.1
-75 verbose addNamed "0.1.1" is a plain semver version for obajs
-76 silly cache afterAdd obajs@0.1.1
-77 verbose afterAdd /Users/iss/.npm/obajs/0.1.1/package/package.json not in flight; writing
-78 verbose correctMkdir /Users/iss/.npm correctMkdir not in flight; initializing
-79 verbose afterAdd /Users/iss/.npm/obajs/0.1.1/package/package.json written
-80 silly install resolved [ { name: 'obajs',
-80 silly install resolved     version: '0.1.1',
-80 silly install resolved     description: 'observe any object\'s any change',
-80 silly install resolved     main: 'oba.js',
-80 silly install resolved     scripts: { test: 'echo "Error: no test specified" && exit 1' },
-80 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/kmdjs/oba.git' },
-80 silly install resolved     keywords:
-80 silly install resolved      [ 'oba',
-80 silly install resolved        'obajs',
-80 silly install resolved        'observe',
-80 silly install resolved        'observable',
-80 silly install resolved        'model',
-80 silly install resolved        'frp',
-80 silly install resolved        'state management',
-80 silly install resolved        'data flow' ],
-80 silly install resolved     author: { name: 'dntzhang' },
-80 silly install resolved     license: 'MIT',
-80 silly install resolved     bugs: { url: 'https://github.com/kmdjs/oba/issues' },
-80 silly install resolved     homepage: 'https://github.com/kmdjs/oba#readme',
-80 silly install resolved     gitHead: '3a0c163e55abdf2b495609c06f877342d0132680',
-80 silly install resolved     _id: 'obajs@0.1.1',
-80 silly install resolved     _shasum: '3aa36c78b8fdfa6abf558017ec3a71220231dc30',
-80 silly install resolved     _from: 'obajs@latest',
-80 silly install resolved     _npmVersion: '2.14.20',
-80 silly install resolved     _nodeVersion: '4.4.0',
-80 silly install resolved     _npmUser: { name: 'dntzhang', email: 'mhtml5@qq.com' },
-80 silly install resolved     dist:
-80 silly install resolved      { shasum: '3aa36c78b8fdfa6abf558017ec3a71220231dc30',
-80 silly install resolved        tarball: 'https://registry.npmjs.org/obajs/-/obajs-0.1.1.tgz' },
-80 silly install resolved     maintainers: [ [Object] ],
-80 silly install resolved     _npmOperationalInternal:
-80 silly install resolved      { host: 'packages-12-west.internal.npmjs.com',
-80 silly install resolved        tmp: 'tmp/obajs-0.1.1.tgz_1484457574724_0.49511300143785775' },
-80 silly install resolved     directories: {},
-80 silly install resolved     _resolved: 'https://registry.npmjs.org/obajs/-/obajs-0.1.1.tgz',
-80 silly install resolved     readme: 'ERROR: No README data found!' } ]
-81 info install obajs@0.1.1 into /Users/iss/api-terra
-82 info installOne obajs@0.1.1
-83 verbose installOne of obajs to /Users/iss/api-terra not in flight; installing
-84 verbose correctMkdir /Users/iss/.npm/_locks correctMkdir not in flight; initializing
-85 verbose lock using /Users/iss/.npm/_locks/obajs-da6a502d89135a4d.lock for /Users/iss/api-terra/node_modules/obajs
-86 silly install write writing obajs 0.1.1 to /Users/iss/api-terra/node_modules/obajs
-87 verbose unbuild node_modules/obajs
-88 info preuninstall obajs@0.1.1
-89 info uninstall obajs@0.1.1
-90 verbose unbuild rmStuff obajs@0.1.1 from /Users/iss/api-terra/node_modules
-91 info postuninstall obajs@0.1.1
-92 silly gentlyRm /Users/iss/api-terra/node_modules/obajs is being purged from base /Users/iss/api-terra
-93 verbose gentlyRm don't care about contents; nuking /Users/iss/api-terra/node_modules/obajs
-94 silly vacuum-fs purging /Users/iss/api-terra/node_modules/obajs
-95 silly vacuum-fs quitting because other entries in /Users/iss/api-terra/node_modules
-96 verbose tar unpack /Users/iss/.npm/obajs/0.1.1/package.tgz
-97 verbose tar unpacking to /Users/iss/api-terra/node_modules/obajs
-98 silly gentlyRm /Users/iss/api-terra/node_modules/obajs is being purged
-99 verbose gentlyRm don't care about contents; nuking /Users/iss/api-terra/node_modules/obajs
-100 silly gunzTarPerm modes [ '755', '644' ]
-101 silly gunzTarPerm extractEntry package.json
-102 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
-103 silly gunzTarPerm extractEntry LICENSE
-104 silly gunzTarPerm modified mode [ 'LICENSE', 438, 420 ]
-105 silly gunzTarPerm extractEntry oba.js
-106 silly gunzTarPerm modified mode [ 'oba.js', 438, 420 ]
-107 silly gunzTarPerm extractEntry .idea/.name
-108 silly gunzTarPerm modified mode [ '.idea/.name', 438, 420 ]
-109 silly gunzTarPerm extractEntry .idea/misc.xml
-110 silly gunzTarPerm modified mode [ '.idea/misc.xml', 438, 420 ]
-111 silly gunzTarPerm extractEntry .idea/modules.xml
-112 silly gunzTarPerm modified mode [ '.idea/modules.xml', 438, 420 ]
-113 silly gunzTarPerm extractEntry .idea/oba.iml
-114 silly gunzTarPerm modified mode [ '.idea/oba.iml', 438, 420 ]
-115 silly gunzTarPerm extractEntry .idea/vcs.xml
-116 silly gunzTarPerm modified mode [ '.idea/vcs.xml', 438, 420 ]
-117 silly gunzTarPerm extractEntry .idea/workspace.xml
-118 silly gunzTarPerm modified mode [ '.idea/workspace.xml', 438, 420 ]
-119 silly gunzTarPerm extractEntry index.html
-120 silly gunzTarPerm modified mode [ 'index.html', 438, 420 ]
-121 silly gunzTarPerm extractEntry readme.md
-122 silly gunzTarPerm modified mode [ 'readme.md', 438, 420 ]
-123 verbose write writing to /Users/iss/api-terra/node_modules/obajs/package.json
-124 info preinstall obajs@0.1.1
-125 verbose readDependencies loading dependencies from /Users/iss/api-terra/node_modules/obajs/package.json
-126 verbose readDependencies loading dependencies from /Users/iss/api-terra/node_modules/obajs/package.json
-127 silly install resolved []
-128 verbose about to build /Users/iss/api-terra/node_modules/obajs
-129 info build /Users/iss/api-terra/node_modules/obajs
-130 info linkStuff obajs@0.1.1
-131 silly linkStuff obajs@0.1.1 has /Users/iss/api-terra/node_modules as its parent node_modules
-132 verbose linkBins obajs@0.1.1
-133 verbose linkMans obajs@0.1.1
-134 verbose rebuildBundles obajs@0.1.1
-135 info install obajs@0.1.1
-136 info postinstall obajs@0.1.1
-137 verbose unlock done using /Users/iss/.npm/_locks/obajs-da6a502d89135a4d.lock for /Users/iss/api-terra/node_modules/obajs
-138 verbose validateInstall loading /Users/iss/api-terra/package.json for validation
-139 verbose stack Error: The package webpack@1.15.0 does not satisfy its siblings' peerDependencies requirements!
-139 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
-139 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:268:7
-139 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
-139 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-139 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-139 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-139 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-139 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-139 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-139 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
-140 verbose cwd /Users/iss/api-terra
-141 error Darwin 15.6.0
-142 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "obajs" "--save"
-143 error node v4.4.5
-144 error npm  v2.15.5
-145 error code EPEERINVALID
-146 error peerinvalid The package webpack@1.15.0 does not satisfy its siblings' peerDependencies requirements!
-146 error peerinvalid Peer sass-loader@6.0.3 wants webpack@^2.0.0
-146 error peerinvalid Peer babel-loader@6.4.1 wants webpack@1 || 2 || ^2.1.0-beta || ^2.2.0-rc
-147 verbose exit [ 1, true ]
+4 verbose run-script [ 'preapp', 'app', 'postapp' ]
+5 info preapp quchao@1.0.0
+6 info app quchao@1.0.0
+7 verbose unsafe-perm in lifecycle true
+8 info quchao@1.0.0 Failed to exec app script
+9 verbose stack Error: quchao@1.0.0 app: `node --harmony app.js`
+9 verbose stack Exit status 1
+9 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:217:16)
+9 verbose stack     at emitTwo (events.js:87:13)
+9 verbose stack     at EventEmitter.emit (events.js:172:7)
+9 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+9 verbose stack     at emitTwo (events.js:87:13)
+9 verbose stack     at ChildProcess.emit (events.js:172:7)
+9 verbose stack     at maybeClose (internal/child_process.js:827:16)
+9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+10 verbose pkgid quchao@1.0.0
+11 verbose cwd /Users/iss/api-terra
+12 error Darwin 15.6.0
+13 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "app"
+14 error node v4.4.5
+15 error npm  v2.15.5
+16 error code ELIFECYCLE
+17 error quchao@1.0.0 app: `node --harmony app.js`
+17 error Exit status 1
+18 error Failed at the quchao@1.0.0 app script 'node --harmony app.js'.
+18 error This is most likely a problem with the quchao package,
+18 error not with npm itself.
+18 error Tell the author that this fails on your system:
+18 error     node --harmony app.js
+18 error You can get information on how to open an issue for this project with:
+18 error     npm bugs quchao
+18 error Or if that isn't available, you can get their info via:
+18 error
+18 error     npm owner ls quchao
+18 error There is likely additional logging output above.
+19 verbose exit [ 1, true ]
