@@ -32,10 +32,7 @@ class Item extends Component {
             );
     }
     clickHandle(e){
-        this.props.changeType(this.props.getKeys,e.key)
-    }
-    componentDidUpdate(){
-
+        this.props.typeChange(this.props.getKeys,e.key)
     }
     render(){
         return (
@@ -80,30 +77,7 @@ export default class Demo extends React.Component {
             data:{}
         }
     }
-    deleteField(name){
-        let names = name.split(':');
-        let keyName = names.length > 1 ? `${names[0]}.val` : names[0];
-        names.map((item,i)=>{
-            if(i){
-                if(i < names.length - 1){
-                    keyName += item == '-' ? `.val` : `.${item}.val`;
-                }else{
-                    keyName += item == '-' ? `` : `.${item}`
-                }
-            }
-        })
-        let fnbody = `
-            let data = this.state.data;
-            delete data.${keyName};
-            return data;
-        `;
-        let FUN = new Function(fnbody);
-        let data = FUN.call(this);
-        this.setState(Object.assign({},this.state,{
-            data:data
-        }))
-    }
-    addField(val){
+    addGlobField(val){
         if(!val) return message.error('请输入正确的字段名称!');
         if(this.state.data[val]){
             message.info('字段已存在！');
@@ -114,12 +88,84 @@ export default class Demo extends React.Component {
             type:'Null'
         };
         this.setState(Object.assign({},this.state,{
-            data:Object.assign({},this.state.data,data)
+            data:Object.assign({},this.state.state,data)
         }))
         this.refs['val'].refs['input'].value = '';
     }
-    deep(obj,names){
-        console.log(names)
+    getKeyName(name,targetKey){
+        let names = name.split(':');
+        let keyName = names.length > 1 ? `${names[0]}.val` : (targetKey || names[0]);
+        names.map((item,i)=>{
+            if(i){
+                if(i < names.length - 1){
+                    keyName += targetKey ? targetKey : item == '-' ? `.val` : `.${item}.val`;
+                }else{
+                    keyName += targetKey ? targetKey : item == '-' ? `` : `.${item}`;
+                }
+            }
+        })
+        return keyName;
+    }
+    /**
+     * 删除字段
+     * @param {字段索引} key 
+     * @param {数据} data 
+     */
+    deleteData(key,data){
+        let fnbody = `
+            delete data.${key};
+            return data;
+        `;
+        let FUN = new Function('data',fnbody);
+        return FUN.call(this,data);
+    }
+    deleteField(name){
+        let keyName = this.getKeyName(name);
+        let data = this.deleteData(keyName,this.state.data)
+        this.setState(Object.assign({},this.state,{
+            data:data
+        }))
+    }
+    //////////////////////////////////////////////////////////////////////
+    /**
+     * 修改字段名称
+     * @param {字段索引} key 
+     * @param {新名称} newKey 
+     * @param {数据} data 
+     */
+    changeKey(key,newKey,data){
+        let fnbody = `
+            let oldData = data.${key};
+            delete data.${key};
+            data.${newKey} = {
+                type:oldData.type || 'Null',
+                val:oldData.val || null
+            }
+            return data;
+        `;
+        let FUN = new Function('data',fnbody);
+        return FUN.call(this,data);
+    }
+    /**
+     * 修改字段类型
+     * @param {字段索引} key 
+     * @param {字段类型} type 
+     * @param {数据} data 
+     */
+    changeType(key,type,data){
+        let fnbody = `
+            let obj = {
+                a:{type:'Null'}
+            }
+            let arr = {type:'Null'}
+            data.${key} = {
+                type:type,
+                val:(type === 'Object' ? obj : type === 'Array' ? arr : null)
+            }
+            return data;
+        `;
+        let FUN = new Function('data','type',fnbody);
+        return FUN.call(this,data,type)
     }
     fieldChange(e,name,type){
         if(test.isType(e,'String') && !type){
@@ -128,58 +174,36 @@ export default class Demo extends React.Component {
             e = null;
         };
         let data = this.state.data;
-        let names = name.split(':');
-        //this.deep(this.state.data,names)
+        //let names = name.split(':');
+        let datakey = this.getKeyName(name);
+        let changeName = this.getKeyName(name,(e ? `${e.target.value}` : 'a'));
         let isChangeName = e ? true : false;
-        let changeData = e;
         let newData = null;
-        if(!names.length){
-            return message.error('请输入正确的字段!');
-        }
-        let datakey = names.length > 1 ? `${names[0]}.val` : `${names[0]}`;
-        let changeName = names.length > 1 ? `${names[0]}.val` : `${e.target.value}`;
-        names.map((item,i)=>{
-            if(i){
-                if(i < names.length - 1){
-                    datakey += item == '-' ? `.val` : `.${item}.val`;
-                    changeName += item == '-' ? `.val` : `.${item}.val`;
-                }else{
-                    changeName += e ? `.${e.target.value}` : '';
-                    datakey += item == '-' ? `` : `.${item}`
-                }
-            }
-        })
-        let fnbody = `
-            let data = this.state.data;
-            let obj = {
-                a:{type:'Null'}
-            }
-            let arr = {type:'Null'}
-            if(${isChangeName}){//改名字
-                let oldData = data.${datakey};
-                delete data.${datakey};
-                data.${changeName} = {
-                    type:type || 'Null',
-                    val:oldData.val || null
-                }
-            }else{//改类型
-                data.${datakey} = {
-                    type:type,
-                    val:(type === 'Object' ? obj : type === 'Array' ? arr : null)
-                };
-            }
-            return data;
-        `;
-        try{
-            let FUN = new Function('e','type',fnbody);
-            newData = FUN.call(this,e,type);
-
-        }catch(e){
-            return message.error('请输入正确的字段名称！');
+        if(isChangeName){//改名字
+            newData = this.changeKey(datakey,changeName,this.state.data);
+        }else{//改类型
+            newData = this.changeType(datakey,type,this.state.data);
         }
         this.setState(Object.assign({},this.state,{
             data:newData
         }))
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * 增加字段
+     * @param {字段索引} key 
+     * @param {新增字段名} newKey 
+     * @param {数据} data 
+     */
+    addField(key,newKey,data){
+        let fnbody = `
+            data.${key}.val['${newKey}'] = {
+                type:'Null'
+            }
+            return data;
+        `;
+        let FUN = new Function('data',fnbody);
+        return FUN.call(this,data);
     }
     addItemFiled(key){
         function diag(){
@@ -191,32 +215,14 @@ export default class Demo extends React.Component {
             message.error('请输入正确的字段名!')
             return;
         }
-        let names = key.split(':');
-        let keyName = names.length > 1 ? `${names[0]}.val` : names[0];
-        names.map((item,i)=>{
-            if(i){
-                if(i < names.length - 1){
-                    keyName += item == '-' ? `.val` : `.${item}.val`;
-                }else{
-                    keyName += item == '-' ? `` : `.${item}`
-                }
-            }
-        })
-
-        let fnbody = `
-            let data = this.state.data;
-            data.${keyName}.val['${newKeyName}'] = {
-                type:'Null'
-            }
-            return data;
-        `;
-        let FUN = new Function(fnbody);
-        let data = FUN.call(this);
+        let keyName = this.getKeyName(key);
+        let data = this.addField(keyName, newKeyName, this.state.data);
         this.setState(Object.assign({},this.state,{
             data:data
         }))
     }
-    changeType(name,val){
+    ////////////////////////////////////////////////////////////////////////////////
+    typeChange(name,val){
         this.fieldChange(name,val)
     }
     getEidt(obj,name,n){
@@ -227,7 +233,7 @@ export default class Demo extends React.Component {
             getKeys={arg}
             offset={n}
             type={obj.type} 
-            changeType={(name,val)=>{this.changeType(name,val)}} 
+            typeChange={(name,val)=>{this.typeChange(name,val)}} 
             onChange={(e,name,type)=>{this.fieldChange(e,name,type)}} 
             data={obj} 
             name={name} 
@@ -249,7 +255,6 @@ export default class Demo extends React.Component {
             name:name,
             data:this.state.data
         }
-        console.log(api)
     }
     render(){
         let n = 0;
@@ -266,7 +271,7 @@ export default class Demo extends React.Component {
                         }
                     </Row>
                     <Input style={{marginTop:20,width:100}} ref="val" />
-                    <Button onClick={()=>{this.addField(this.refs['val'].refs['input'].value)}}>增加字段</Button>
+                    <Button onClick={()=>{this.addGlobField(this.refs['val'].refs['input'].value)}}>增加字段</Button>
                     <Button onClick={()=>{this.submitApi()}}>提交接口</Button>
                 </div>
             </div>
