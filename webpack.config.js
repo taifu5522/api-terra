@@ -1,8 +1,15 @@
+var path = require('path');
+
 module.exports = {
 	entry: "./build.js",
 	output: {
 		path: "/lib",
 		filename: "main.js"
+	},
+	resolve:{
+		alias:{
+			'common':path.resolve(__dirname,'./script/public')
+		}
 	},
 	module: {
 		loaders: [

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import data from 'common/data-store';
 
 import '../css/antd.min.css';
 
@@ -76,21 +77,7 @@ export default class Demo extends React.Component {
             eidt:false,
             data:{}
         }
-    }
-    addGlobField(val){
-        if(!val) return message.error('请输入正确的字段名称!');
-        if(this.state.data[val]){
-            message.info('字段已存在！');
-            return;
-        }
-        let data = {};
-        data[val] = {
-            type:'Null'
-        };
-        this.setState(Object.assign({},this.state,{
-            data:Object.assign({},this.state.state,data)
-        }))
-        this.refs['val'].refs['input'].value = '';
+        this.dataStore = new data.dataStore()
     }
     getKeyName(name,targetKey){
         let names = name.split(':');
@@ -98,7 +85,7 @@ export default class Demo extends React.Component {
         names.map((item,i)=>{
             if(i){
                 if(i < names.length - 1){
-                    keyName += targetKey ? targetKey : item == '-' ? `.val` : `.${item}.val`;
+                    keyName += item == '-' ? `.val` : `.${item}.val`;
                 }else{
                     keyName += targetKey ? targetKey : item == '-' ? `` : `.${item}`;
                 }
@@ -106,24 +93,25 @@ export default class Demo extends React.Component {
         })
         return keyName;
     }
-    /**
-     * 删除字段
-     * @param {字段索引} key 
-     * @param {数据} data 
-     */
-    deleteData(key,data){
-        let fnbody = `
-            delete data.${key};
-            return data;
-        `;
-        let FUN = new Function('data',fnbody);
-        return FUN.call(this,data);
+    addGlobField(val){
+        if(!val) return message.error('请输入正确的字段名称!');
+        if(this.state.data[val]){
+            message.info('字段已存在！');
+            return;
+        }
+        this.dataStore.add(val,{
+            type:'Null'
+        })
+        this.setState(Object.assign({},this.state,{
+            data:this.dataStore.getData()
+        }))
+        this.refs['val'].refs['input'].value = '';
     }
     deleteField(name){
         let keyName = this.getKeyName(name);
-        let data = this.deleteData(keyName,this.state.data)
+        this.dataStore.delete(keyName);
         this.setState(Object.assign({},this.state,{
-            data:data
+            data:this.dataStore.getData()
         }))
     }
     //////////////////////////////////////////////////////////////////////
@@ -131,41 +119,30 @@ export default class Demo extends React.Component {
      * 修改字段名称
      * @param {字段索引} key 
      * @param {新名称} newKey 
-     * @param {数据} data 
      */
-    changeKey(key,newKey,data){
-        let fnbody = `
-            let oldData = data.${key};
-            delete data.${key};
-            data.${newKey} = {
-                type:oldData.type || 'Null',
-                val:oldData.val || null
-            }
-            return data;
-        `;
-        let FUN = new Function('data',fnbody);
-        return FUN.call(this,data);
+    changeKey(key,newKey){
+        let changeKey = newKey.split(':').pop();
+        let keys = key.split(':');
+        keys.pop();
+        keys.push(changeKey);
+        let oldData = Object.assign({},this.dataStore.findKey(key));
+        this.dataStore.delete(key);
+        this.dataStore.add(keys.join(':'),oldData)
     }
     /**
      * 修改字段类型
      * @param {字段索引} key 
      * @param {字段类型} type 
-     * @param {数据} data 
      */
-    changeType(key,type,data){
-        let fnbody = `
-            let obj = {
-                a:{type:'Null'}
-            }
-            let arr = {type:'Null'}
-            data.${key} = {
-                type:type,
-                val:(type === 'Object' ? obj : type === 'Array' ? arr : null)
-            }
-            return data;
-        `;
-        let FUN = new Function('data','type',fnbody);
-        return FUN.call(this,data,type)
+    changeType(key,type){
+        let obj = {
+            a:{type:'Null'}
+        }
+        let arr = {type:'Null'}
+        this.dataStore.update(key,{
+            type:type,
+            val:(type === 'Object' ? obj : type === 'Array' ? arr : null)
+        })
     }
     fieldChange(e,name,type){
         if(test.isType(e,'String') && !type){
@@ -176,16 +153,17 @@ export default class Demo extends React.Component {
         let data = this.state.data;
         //let names = name.split(':');
         let datakey = this.getKeyName(name);
-        let changeName = this.getKeyName(name,(e ? `${e.target.value}` : 'a'));
+        let changeName = this.getKeyName(name,(e ? `.${e.target.value}` : 'a'));
         let isChangeName = e ? true : false;
         let newData = null;
         if(isChangeName){//改名字
-            newData = this.changeKey(datakey,changeName,this.state.data);
+            this.changeKey(datakey,changeName);
         }else{//改类型
-            newData = this.changeType(datakey,type,this.state.data);
+            this.changeType(datakey,type);
         }
+        console.log(this.dataStore.getData())
         this.setState(Object.assign({},this.state,{
-            data:newData
+            data:this.dataStore.getData()
         }))
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -193,17 +171,11 @@ export default class Demo extends React.Component {
      * 增加字段
      * @param {字段索引} key 
      * @param {新增字段名} newKey 
-     * @param {数据} data 
      */
-    addField(key,newKey,data){
-        let fnbody = `
-            data.${key}.val['${newKey}'] = {
-                type:'Null'
-            }
-            return data;
-        `;
-        let FUN = new Function('data',fnbody);
-        return FUN.call(this,data);
+    addField(key,newKey){
+        this.dataStore.add(`${key}.val.${newKey}`,{
+            type:'Null'
+        });
     }
     addItemFiled(key){
         function diag(){
@@ -216,9 +188,9 @@ export default class Demo extends React.Component {
             return;
         }
         let keyName = this.getKeyName(key);
-        let data = this.addField(keyName, newKeyName, this.state.data);
+        this.addField(keyName, newKeyName);
         this.setState(Object.assign({},this.state,{
-            data:data
+            data:this.dataStore.getData()
         }))
     }
     ////////////////////////////////////////////////////////////////////////////////

@@ -2,7 +2,6 @@ class publics{
     constructor(){
         
     }
-
     deep(b, c){
         var c = c || {};
         try{
