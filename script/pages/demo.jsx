@@ -73,11 +73,11 @@ class Item extends Component {
 export default class Demo extends React.Component {
     constructor(props){
         super(props)
+        this.dataStore = new data.dataStore();
         this.state = {  
             eidt:false,
-            data:{}
+            data:this.dataStore.getData()
         }
-        this.dataStore = new data.dataStore()
     }
     getKeyName(name,targetKey){
         let names = name.split(':');

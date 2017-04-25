@@ -2,7 +2,11 @@ import test from 'common/publics';
 let Tester = new test();
 
 
-function dataStore(){}
+function dataStore(data){
+    if(data){
+        this.data = data;
+    }
+}
 dataStore.prototype.data = {};
 dataStore.prototype.getData = function(){
     return this.data;
