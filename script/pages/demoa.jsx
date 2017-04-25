@@ -32,7 +32,7 @@ class Item extends Component {
             );
     }
     clickHandle(e){
-        this.props.changeType(this.props.getKeys,e.key)
+        this.props.changeVal(this.props.getKeys,e.key)
     }
     componentDidUpdate(){
 
@@ -62,7 +62,7 @@ class Item extends Component {
                     </Button>
                 }
                 {
-                    this.props.type == 'Object' ? <Button onClick={()=>{this.props.addItemFiled(this.props.getKeys)}}>增加字段</Button> : null
+                    this.props.type == 'Object' ? <Button onClick={()=>{this.props.addItemFiled(this.props.getKeys,'asd')}}>增加字段</Button> : null
                 }
                 {
                     this.props.children
@@ -77,28 +77,27 @@ export default class Demo extends React.Component {
         super(props)
         this.state = {  
             eidt:false,
-            data:{}
+            data:{
+                a:{type:'Object',val:{
+                    b:{type:'Object',val:{
+                        d:{type:'Number'},
+                        e:{type:'Array',val:{
+                            type:'Object',
+                            val:{
+                                aaa:{
+                                    type:'String'
+                                }
+                            }
+                        }}
+                    }},
+                    c:{type:'Script'}
+                }}
+            }
         }
     }
     deleteField(name){
-        let names = name.split(':');
-        let keyName = names.length > 1 ? `${names[0]}.val` : names[0];
-        names.map((item,i)=>{
-            if(i){
-                if(i < names.length - 1){
-                    keyName += item == '-' ? `.val` : `.${item}.val`;
-                }else{
-                    keyName += item == '-' ? `` : `.${item}`
-                }
-            }
-        })
-        let fnbody = `
-            let data = this.state.data;
-            delete data.${keyName};
-            return data;
-        `;
-        let FUN = new Function(fnbody);
-        let data = FUN.call(this);
+        let data = this.state.data;
+        delete data[name];
         this.setState(Object.assign({},this.state,{
             data:data
         }))
@@ -115,29 +114,23 @@ export default class Demo extends React.Component {
         };
         this.setState(Object.assign({},this.state,{
             data:Object.assign({},this.state.data,data)
-        }))
-        this.refs['val'].refs['input'].value = '';
-    }
-    deep(obj,names){
-        console.log(names)
+        }),()=>{
+            this.refs['val'].refs['input'].value = "";
+        })
     }
     fieldChange(e,name,type){
         if(test.isType(e,'String') && !type){
             type = name;
             name = e;
             e = null;
-        };
+        }
         let data = this.state.data;
         let names = name.split(':');
-        //this.deep(this.state.data,names)
         let isChangeName = e ? true : false;
         let changeData = e;
         let newData = null;
-        if(!names.length){
-            return message.error('请输入正确的字段!');
-        }
         let datakey = names.length > 1 ? `${names[0]}.val` : `${names[0]}`;
-        let changeName = names.length > 1 ? `${names[0]}.val` : `${e.target.value}`;
+        let changeName = names.length > 1 ? `${names[0]}.val` : `${names[0]}`;
         names.map((item,i)=>{
             if(i){
                 if(i < names.length - 1){
@@ -170,53 +163,30 @@ export default class Demo extends React.Component {
             }
             return data;
         `;
-        try{
-            let FUN = new Function('e','type',fnbody);
-            newData = FUN.call(this,e,type);
-
-        }catch(e){
-            return message.error('请输入正确的字段名称！');
-        }
+        let FUN = new Function('e','type',fnbody);
+        newData = FUN.call(this,e,type);
         this.setState(Object.assign({},this.state,{
             data:newData
-        }))
+        }),()=>{
+            console.log(this.state.data)
+        })
     }
-    addItemFiled(key){
+    addItemFiled(key,name){
         function diag(){
             var str=prompt("请输入字段名");
             return str;
         }
         let newKeyName = diag();
-        if(!newKeyName){
-            message.error('请输入正确的字段名!')
-            return;
-        }
         let names = key.split(':');
         let keyName = names.length > 1 ? `${names[0]}.val` : names[0];
-        names.map((item,i)=>{
-            if(i){
-                if(i < names.length - 1){
-                    keyName += item == '-' ? `.val` : `.${item}.val`;
-                }else{
-                    keyName += item == '-' ? `` : `.${item}`
-                }
-            }
+        names.map(item=>{
+            
         })
-
         let fnbody = `
-            let data = this.state.data;
-            data.${keyName}.val['${newKeyName}'] = {
-                type:'Null'
-            }
-            return data;
+
         `;
-        let FUN = new Function(fnbody);
-        let data = FUN.call(this);
-        this.setState(Object.assign({},this.state,{
-            data:data
-        }))
     }
-    changeType(name,val){
+    changeVal(name,val){
         this.fieldChange(name,val)
     }
     getEidt(obj,name,n){
@@ -227,12 +197,12 @@ export default class Demo extends React.Component {
             getKeys={arg}
             offset={n}
             type={obj.type} 
-            changeType={(name,val)=>{this.changeType(name,val)}} 
+            changeVal={(name,val)=>{this.changeVal(name,val)}} 
             onChange={(e,name,type)=>{this.fieldChange(e,name,type)}} 
             data={obj} 
             name={name} 
             deleteField={(n)=>{this.deleteField(n)}}
-            addItemFiled={(key)=>{this.addItemFiled(key)}}
+            addItemFiled={(key,name)=>{this.addItemFiled(key,name)}}
             key={Date.now()+Math.random()}>
             {
                 obj.type === 'Object' ? Object.keys(obj.val).map((key)=>{
@@ -242,22 +212,13 @@ export default class Demo extends React.Component {
             </Item>
         )
     }
-    submitApi(){
-        let name = this.refs['apiName'].refs['input'].value;
-        if(!name){return message.error('请输入接口名称!')};
-        let api = {
-            name:name,
-            data:this.state.data
-        }
-        console.log(api)
-    }
     render(){
         let n = 0;
         return (
             <div style={{padding:20}}>
                 <Button onClick={()=>{this.setState(Object.assign({},this.state,{eidt:true}))}}>新增接口</Button>
-                <div style={{display:(this.state.eidt ? 'block' : 'none'),marginTop:20}}>
-                    接口名称:<Input style={{width:500}} type="text" ref="apiName" />
+
+                <div style={{display:(!this.state.eidt ? 'block' : 'none'),marginTop:20}}>
                     <Row>
                         {
                             Object.keys(this.state.data).map((item)=>{
@@ -267,7 +228,6 @@ export default class Demo extends React.Component {
                     </Row>
                     <Input style={{marginTop:20,width:100}} ref="val" />
                     <Button onClick={()=>{this.addField(this.refs['val'].refs['input'].value)}}>增加字段</Button>
-                    <Button onClick={()=>{this.submitApi()}}>提交接口</Button>
                 </div>
             </div>
         )
