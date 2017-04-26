@@ -1,6 +1,7 @@
 function dataCreator(apiModal){
     this.apiModal = apiModal;
     this.data = this.deep();
+    return this.data;
 }
 dataCreator.prototype.deep = function(data){
     data = data || this.apiModal.data;
@@ -29,12 +30,36 @@ dataCreator.prototype.createData = function(api){
             } 
             return arr;
         case 'Number':
-            return Math.random() * 10000;
+            return this.getRandomNum(5);
         case 'Boolean':
             return Math.floor(Math.random() * 10) > 5;
         case 'String':
-            return 'aaaaaa';
+            return this.randomText(Math.floor(Math.random() * 30));
+        case 'Phone':
+            return `1${this.getRandomItem[3,5,7,8]}${this.getRandomNum(9)}`;
     }
+}
+dataCreator.prototype.randomText = function (_len){
+	var i=0;
+	var _str = "";
+	var _base = 20000;
+	var _range = 1000;
+	while(i < _len){
+		i++;
+		var _lower = parseInt(Math.random() * _range);
+		_str += String.fromCharCode(_base + _lower);
+	}
+	return _str;
+}
+dataCreator.prototype.getRandomItem = function(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+dataCreator.prototype.getRandomNum = function(len){
+    let num = ``,i;
+    for(i=0;i<len;i++){
+        num += Math.floor(Math.random() * 10);
+    }
+    return Number(num)
 }
 
 export default dataCreator;

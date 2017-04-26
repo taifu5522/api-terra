@@ -33,6 +33,7 @@ class Item extends Component {
                     <Menu.Item key="Array">Array</Menu.Item>
                     <Menu.Item key="Object">Object</Menu.Item>
                     <Menu.Item key="Null">Null</Menu.Item>
+                    <Menu.Item key="Phone">Null</Menu.Item>
                 </Menu>
             );
     }
@@ -110,7 +111,7 @@ export default class Demo extends React.Component {
             return;
         }
         this.dataStore.add(val,{
-            type:'Null'
+            type:'String'
         })
         this.setState(Object.assign({},this.state,{
             data:this.dataStore.getData()
@@ -232,6 +233,7 @@ export default class Demo extends React.Component {
         }
 
         let data = new dataCreator(api);
+        console.log(data)
 
         fetch(`/doc/save?api=${JSON.stringify(api)}`).then(res=>res.json()).then(data=>{
             //console.log(data)
