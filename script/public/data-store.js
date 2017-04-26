@@ -32,7 +32,6 @@ dataStore.prototype.add = function(name,type){
 }
 dataStore.prototype.update = function(name,newVal){
     let data = this.find(name);
-    console.log(name)
     let changeName = name.split('.').pop();
     data[changeName] = newVal;
     return this.data;

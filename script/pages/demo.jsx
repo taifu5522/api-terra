@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import data from 'common/data-store';
+import dataCreator from 'common/create-data';
 
 import '../css/antd.min.css';
 
@@ -21,6 +22,9 @@ let test = new publics();
 class Item extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            getKeys:this.props.getKeys
+        }
         this.menu = (
                 <Menu onClick={(e)=>{this.clickHandle(e)}}>
                     <Menu.Item key="String">String</Menu.Item>
@@ -33,17 +37,23 @@ class Item extends Component {
             );
     }
     clickHandle(e){
-        this.props.typeChange(this.props.getKeys,e.key)
+        this.props.typeChange(this.state.getKeys,e.key)
+    }
+    changeName(e){
+        let newKey = this.props.onChange(e,this.state.getKeys,this.props.type);
+        this.setState(Object.assign({},this.state,{
+            getKeys:newKey
+        }));
     }
     render(){
         return (
             <Col style={{marginTop:10}} offset={this.props.offset}>
                 字段:{
-                    !this.props.name ? null : (
+                    test.isType(this.props.name,'Null') ? null : (
                     <Input style={{width:100}}
                     defaultValue={this.props.name}
-                    onChange={(e)=>{this.props.onChange(e,this.props.getKeys,this.props.type)}}
-                    disabled={!this.props.name}
+                    onChange={(e)=>{this.changeName(e)}}
+                    disabled={test.isType(this.props.name,'Null')}
                     />
                     )
                 }
@@ -54,13 +64,13 @@ class Item extends Component {
                         }
                     </Dropdown.Button>
                 {
-                    !this.props.name ? null : 
-                    <Button onClick={()=>{this.props.deleteField(this.props.getKeys)}}>
+                    test.isType(this.props.name,'Null') ? null : 
+                    <Button onClick={()=>{this.props.deleteField(this.state.getKeys)}}>
                         删除字段
                     </Button>
                 }
                 {
-                    this.props.type == 'Object' ? <Button onClick={()=>{this.props.addItemFiled(this.props.getKeys)}}>增加字段</Button> : null
+                    this.props.type == 'Object' ? <Button onClick={()=>{this.props.addItemFiled(this.state.getKeys)}}>增加字段</Button> : null
                 }
                 {
                     this.props.children
@@ -114,7 +124,7 @@ export default class Demo extends React.Component {
             data:this.dataStore.getData()
         }))
     }
-    //////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     /**
      * 修改字段名称
      * @param {字段索引} key 
@@ -128,6 +138,9 @@ export default class Demo extends React.Component {
         let oldData = Object.assign({},this.dataStore.findKey(key));
         this.dataStore.delete(key);
         this.dataStore.add(keys.join(':'),oldData)
+        let newKeyName = newKey.replace(/\.val\.val/g,'-').replace(/\.val/g,'');
+        newKeyName = newKeyName.split('.').join(':').split('-').join(':-');
+        return newKeyName;
     }
     /**
      * 修改字段类型
@@ -136,9 +149,9 @@ export default class Demo extends React.Component {
      */
     changeType(key,type){
         let obj = {
-            a:{type:'Null'}
+            a:{type:'Object'}
         }
-        let arr = {type:'Null'}
+        let arr = {type:'Object'}
         this.dataStore.update(key,{
             type:type,
             val:(type === 'Object' ? obj : type === 'Array' ? arr : null)
@@ -154,18 +167,16 @@ export default class Demo extends React.Component {
         //let names = name.split(':');
         let datakey = this.getKeyName(name);
         let changeName = this.getKeyName(name,(e ? `.${e.target.value}` : 'a'));
-        let isChangeName = e ? true : false;
-        let newData = null;
-        if(isChangeName){//改名字
-            this.changeKey(datakey,changeName);
+        if(e){//改名字
+            return this.changeKey(datakey,changeName);
         }else{//改类型
             this.changeType(datakey,type);
+            this.setState(Object.assign({},this.state,{
+                data:this.dataStore.getData()
+            }))
         }
-        this.setState(Object.assign({},this.state,{
-            data:this.dataStore.getData()
-        }))
     }
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////
     /**
      * 增加字段
      * @param {字段索引} key 
@@ -198,7 +209,7 @@ export default class Demo extends React.Component {
             offset={n}
             type={obj.type} 
             typeChange={(name,val)=>{this.fieldChange(name,val)}} 
-            onChange={(e,name,type)=>{this.fieldChange(e,name,type)}} 
+            onChange={(e,name,type)=>{return this.fieldChange(e,name,type)}} 
             data={obj} 
             name={name} 
             deleteField={(n)=>{this.deleteField(n)}}
@@ -217,10 +228,13 @@ export default class Demo extends React.Component {
         if(!name){return message.error('请输入接口名称!')};
         let api = {
             name:name,
-            data:this.state.data
+            data:this.dataStore.getData()
         }
+
+        let data = new dataCreator(api);
+
         fetch(`/doc/save?api=${JSON.stringify(api)}`).then(res=>res.json()).then(data=>{
-            console.log(data)
+            //console.log(data)
         })
     }
     render(){
