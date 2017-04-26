@@ -33,7 +33,8 @@ class Item extends Component {
                     <Menu.Item key="Array">Array</Menu.Item>
                     <Menu.Item key="Object">Object</Menu.Item>
                     <Menu.Item key="Null">Null</Menu.Item>
-                    <Menu.Item key="Phone">Null</Menu.Item>
+                    <Menu.Item key="Phone">Phone</Menu.Item>
+                    <Menu.Item key="Email">Email</Menu.Item>
                 </Menu>
             );
     }
@@ -111,7 +112,7 @@ export default class Demo extends React.Component {
             return;
         }
         this.dataStore.add(val,{
-            type:'String'
+            type:'Null'
         })
         this.setState(Object.assign({},this.state,{
             data:this.dataStore.getData()

@@ -36,7 +36,9 @@ dataCreator.prototype.createData = function(api){
         case 'String':
             return this.randomText(Math.floor(Math.random() * 30));
         case 'Phone':
-            return `1${this.getRandomItem[3,5,7,8]}${this.getRandomNum(9)}`;
+            return Number(`1${this.getRandomItem([3,5,7,8])}${this.getRandomNum(9)}`);
+        case 'Email':
+            return `${this.getRandomStr(7)}@ishansong.com`
     }
 }
 dataCreator.prototype.randomText = function (_len){
@@ -60,6 +62,13 @@ dataCreator.prototype.getRandomNum = function(len){
         num += Math.floor(Math.random() * 10);
     }
     return Number(num)
+}
+dataCreator.prototype.getRandomStr = function(len){
+    let str = ``,i;
+    for(i=0;i<len;i++){
+        str += String.fromCharCode(97 + Math.floor(Math.random() * 26));
+    }
+    return str;
 }
 
 export default dataCreator;
