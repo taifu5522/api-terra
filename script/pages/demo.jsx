@@ -150,9 +150,9 @@ export default class Demo extends React.Component {
      */
     changeType(key,type){
         let obj = {
-            a:{type:'Object'}
+            a:{type:'String'}
         }
-        let arr = {type:'Object'}
+        let arr = {type:'String'}
         this.dataStore.update(key,{
             type:type,
             val:(type === 'Object' ? obj : type === 'Array' ? arr : null)
