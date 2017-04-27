@@ -1,10 +1,12 @@
-function dataCreator(apiModal){
-    this.apiModal = apiModal;
+'use strict';
+
+function dataCreator(apiModel){
+    this.apiModel = apiModel;
     this.data = this.deep();
     return this.data;
 }
 dataCreator.prototype.deep = function(data){
-    data = data || this.apiModal.data;
+    data = data || this.apiModel.data;
     let apiData = {};
     Object.keys(data).map(key=>{
         apiData[key] = this.createData(data[key]);
@@ -71,4 +73,4 @@ dataCreator.prototype.getRandomStr = function(len){
     return str;
 }
 
-export default dataCreator;
+module.exports =  dataCreator;

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import data from 'common/data-store';
-import dataCreator from 'common/create-data';
 
 import '../css/antd.min.css';
 
@@ -232,9 +231,6 @@ export default class Demo extends React.Component {
             name:name,
             data:this.dataStore.getData()
         }
-
-        let data = new dataCreator(api);
-        console.log(data)
 
         fetch(`/doc/save?api=${JSON.stringify(api)}`).then(res=>res.json()).then(data=>{
             //console.log(data)
