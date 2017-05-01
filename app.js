@@ -5,10 +5,8 @@
  * @Project: terra
  * @Filename: app.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-04-20 19:02:51
+ * @Last modified time: 2017-04-30 22:17:11
  */
-
-
 
 'use strict';
 
@@ -33,24 +31,22 @@ app.use(getApi);
 
 //use webpack
 app.use(webpackDevMiddleware(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
+    noInfo: true,
+    publicPath: config.output.publicPath
 }));
 app.use(webpackHotMiddleware(compiler));
 
 // time
-app.use(function *(next){
-  var start = new Date;
-  yield next;
-  var ms = new Date - start;
-  this.set('X-Response-Time', ms + 'ms');
+app.use(function * (next) {
+    var start = new Date;
+    yield next;
+    var ms = new Date - start;
+    this.set('X-Response-Time', ms + 'ms');
 });
 
 app.use(logger());
 
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
+app.use(router.routes()).use(router.allowedMethods());
 
 //listen
 

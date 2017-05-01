@@ -5,13 +5,50 @@
  * @Project: terra
  * @Filename: login.css
  * @Last modified by:   ceekey
- * @Last modified time: 2017-04-27 20:21:54
+ * @Last modified time: 2017-04-28 15:55:47
  */
-
-
-
-#particles-js{
-    background-color: #000;
-    width: 100%;
+#app {
+    width : 100%;
     height: 100%;
+}
+
+#app > div {
+    width : 100%;
+    height: 100%;
+}
+
+.user-content {
+    width : 100%;
+    height: 100%;
+}
+
+#particles-js {
+    overflow        : hidden;
+    width           : 100%;
+    height          : 100%;
+    background-color: burlywood;
+}
+
+.user-info {
+    border-radius   : 15px;
+    z-index         : 999;
+    position        : absolute;
+    width           : 40%;
+    height          : auto;
+    padding         : 30px;
+    left            : 30%;
+    top             : 30%;
+    background-color: rgba(200,200,200,0.5);
+}
+
+#components-form-demo-normal-login .login-form {
+    max-width: 300px;
+}
+
+#components-form-demo-normal-login .login-form-forgot {
+    float: right;
+}
+
+#components-form-demo-normal-login .login-form-button {
+    width: 100%;
 }
