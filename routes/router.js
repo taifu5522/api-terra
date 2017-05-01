@@ -1,23 +1,36 @@
+/**
+ * @Author: wangxu <ceekey>
+ * @Date:   2017-04-26 11:15:45
+ * @Email:  xu.wang@ishansong.com
+ * @Project: terra
+ * @Filename: router.js
+ * @Last modified by:   ceekey
+ * @Last modified time: 2017-05-01 19:53:59
+ */
+
 'use strict'
 let router = require('koa-router')();
-let views = require('../views/index');
-let user = require('../apis/user');
-let doc = require('../apis/doc');
+let service = require('../server/service/services');
+let R = require('ramda');
+let config = require('../config/index')
 
-//首页
-router.get('/',views.home);
-router.get('/view',views.home);
 
-router.get('/user/UserBase/:func',user.base);
-router.post('/user/UserBase/:func',user.base);
+/**
+ *
+ * API路由统一注册
+ *
+ */
+R.forEach((type) => {
+    let apis = type === 'get'
+        ? config.api.getApi
+        : config.api.postApi;
+    let apiDeal = (value) => {
+        router[type](value.url, service[value.service]);
+    };
+    R.forEach(apiDeal)(apis);
+})(['get', 'post']);
 
-router.get('/user/loginIn',function *(next){
-	this.body = 'loginIn';
-});
-
-//api文档相关操作
-router.get('/doc/save',doc.saveApi);
 
 module.exports = {
-    router:router
+    router: router
 }

@@ -3,11 +3,11 @@
 2 info using npm@2.15.5
 3 info using node@v4.4.5
 4 verbose run-script [ 'preapp', 'app', 'postapp' ]
-5 info preapp quchao@1.0.0
-6 info app quchao@1.0.0
+5 info preapp virtualService@1.0.0
+6 info app virtualService@1.0.0
 7 verbose unsafe-perm in lifecycle true
-8 info quchao@1.0.0 Failed to exec app script
-9 verbose stack Error: quchao@1.0.0 app: `node --harmony app.js`
+8 info virtualService@1.0.0 Failed to exec app script
+9 verbose stack Error: virtualService@1.0.0 app: `supervisor --harmony app.js`
 9 verbose stack Exit status 1
 9 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:217:16)
 9 verbose stack     at emitTwo (events.js:87:13)
@@ -17,24 +17,24 @@
 9 verbose stack     at ChildProcess.emit (events.js:172:7)
 9 verbose stack     at maybeClose (internal/child_process.js:827:16)
 9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
-10 verbose pkgid quchao@1.0.0
-11 verbose cwd /Users/iss/api-terra
-12 error Darwin 15.6.0
+10 verbose pkgid virtualService@1.0.0
+11 verbose cwd /Users/ceekey/Documents/workSpace/api-terra
+12 error Darwin 16.5.0
 13 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "app"
 14 error node v4.4.5
 15 error npm  v2.15.5
 16 error code ELIFECYCLE
-17 error quchao@1.0.0 app: `node --harmony app.js`
+17 error virtualService@1.0.0 app: `supervisor --harmony app.js`
 17 error Exit status 1
-18 error Failed at the quchao@1.0.0 app script 'node --harmony app.js'.
-18 error This is most likely a problem with the quchao package,
+18 error Failed at the virtualService@1.0.0 app script 'supervisor --harmony app.js'.
+18 error This is most likely a problem with the virtualService package,
 18 error not with npm itself.
 18 error Tell the author that this fails on your system:
-18 error     node --harmony app.js
+18 error     supervisor --harmony app.js
 18 error You can get information on how to open an issue for this project with:
-18 error     npm bugs quchao
+18 error     npm bugs virtualService
 18 error Or if that isn't available, you can get their info via:
 18 error
-18 error     npm owner ls quchao
+18 error     npm owner ls virtualService
 18 error There is likely additional logging output above.
 19 verbose exit [ 1, true ]
