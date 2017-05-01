@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: app.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-01 15:11:36
+ * @Last modified time: 2017-05-02 02:06:27
  */
 
 'use strict';
@@ -13,7 +13,12 @@
 let koa = require('koa');
 let app = koa();
 let router = require('./routes/router').router;
-var logger = require('koa-logger')
+let logger = require('koa-logger')
+let koaBody = require('koa-better-body');
+//支持x-www-form-urlencoded
+//支持form-data
+app.use(koaBody());
+
 
 //webpack hot dev server
 let webpack = require('webpack');
@@ -24,7 +29,7 @@ let compiler = webpack(config);
 
 let getApi = require('./middlewares/index').getApi;
 
-var staticServer = require('koa-static');
+let staticServer = require('koa-static');
 app.use(staticServer(__dirname + '/lib'));
 
 app.use(getApi);
@@ -38,9 +43,9 @@ app.use(getApi);
 
 // time
 app.use(function * (next) {
-    var start = new Date;
+    let start = new Date;
     yield next;
-    var ms = new Date - start;
+    let ms = new Date - start;
     this.set('X-Response-Time', ms + 'ms');
 });
 

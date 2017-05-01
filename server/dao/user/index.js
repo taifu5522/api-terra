@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: base.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-02 00:26:19
+ * @Last modified time: 2017-05-02 02:15:33
  */
 
 'use strict'
@@ -28,9 +28,23 @@ let userDao = {
             }
         },
         login: function * (loginInfo) {
+            if (R.isNil(loginInfo)) {
+                return common.errHandle({
+                    code: 102
+                }, "用户名或密码错误");
+            }
+            if (R.isEmpty(loginInfo.username) || R.isNil(loginInfo.username)) {
+                return common.errHandle({
+                    code: 102
+                }, "用户名或密码错误");
+            }
+            if (R.isEmpty(loginInfo.password) || R.isNil(loginInfo.password)) {
+                return common.errHandle({
+                    code: 102
+                }, "用户名或密码错误");
+            }
             try {
                 let result = yield model.find(loginInfo);
-                console.log(result);
                 if (R.isEmpty(result)) {
                     return common.errHandle({
                         code: 102
