@@ -12,9 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^2.9.1",
+    "babel-polyfill": "^6.23.0",
     "co": "^4.6.0",
     "co-body": "^4.2.0",
     "co-views": "^2.1.0",
+    "isomorphic-fetch": "^2.2.1",
     "koa": "^1.2.4",
     "koa-better-body": "^3.0.2",
     "koa-convert": "^1.2.0",
@@ -26,6 +28,7 @@
     "mongoose": "^4.7.2",
     "ramda": "^0.23.0",
     "react-redux": "^5.0.4",
+    "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
     "swig": "^1.4.2"
   },

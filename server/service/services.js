@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: api.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-02 02:08:31
+ * @Last modified time: 2017-05-02 04:19:34
  */
 
 'use strict';
@@ -18,8 +18,9 @@ class Api {
         this.body = yield dao.user.register(this.query);
     }
     static * login(next) {
-        this.body = yield dao.user.login(this.request.fields);
-
+        var result = yield dao.user.login(this.request.fields);
+        this.cookies.set("userId", result.data);
+        this.body = result;
     }
 }
 

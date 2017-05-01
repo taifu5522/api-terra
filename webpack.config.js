@@ -1,7 +1,19 @@
+/**
+ * @Author: wangxu <ceekey>
+ * @Date:   2017-04-26 11:15:45
+ * @Email:  xu.wang@ishansong.com
+ * @Project: terra
+ * @Filename: webpack.config.js
+ * @Last modified by:   ceekey
+ * @Last modified time: 2017-05-02 03:02:38
+ */
+
+
+
 var path = require('path');
 
 module.exports = {
-	entry: "./build.js",
+	entry: "./script/app.jsx",
 	output: {
 		path: "/lib",
 		filename: "main.js"

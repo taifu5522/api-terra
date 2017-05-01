@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: app.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-02 02:06:27
+ * @Last modified time: 2017-05-02 03:28:14
  */
 
 'use strict';
@@ -34,12 +34,12 @@ app.use(staticServer(__dirname + '/lib'));
 
 app.use(getApi);
 
-//use webpack
-// app.use(webpackDevMiddleware(compiler, {
-//     noInfo: true,
-//     publicPath: config.output.publicPath
-// }));
-// app.use(webpackHotMiddleware(compiler));
+// use webpack
+app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+}));
+app.use(webpackHotMiddleware(compiler));
 
 // time
 app.use(function * (next) {

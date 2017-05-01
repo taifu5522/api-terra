@@ -5,34 +5,52 @@
  * @Project: terra
  * @Filename: login.jsx
  * @Last modified by:   ceekey
- * @Last modified time: 2017-04-30 13:54:31
+ * @Last modified time: 2017-05-02 03:10:09
  */
 
-import React, {Component} from 'react';
+ 'use strict'
+
+import React, {Component,PropTypes} from 'react';
 import "../../css/antd.min.css";
 import "../../css/user/login.css";
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
+
+import * as actionCreators from '../../Redux/Action/action.js';
+import { bindActionCreators } from 'redux';
+import { connect, Provider } from 'react-redux';
+
 const FormItem = Form.Item;
 
-class NormalLoginForm extends React.Component {
+
+const propTypes = {
+  state: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
+};
+
+
+
+class NormalLoginForm extends Component {
     constructor(props){
         super(props);
-        this.handleSubmit.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this);
     }
-    handleSubmit(e) {
-        e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
-    }
+    handleSubmit(e){
+    e.preventDefault();
+     console.log(this.props);
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        this.props.actions.login(values);
+      }
+    });
+  }
     render() {
         const {getFieldDecorator} = this.props.form;
+        const {actions,state} = this.props;
         return (
             <Form id="components-form-demo-normal-login"  onSubmit={this.handleSubmit} className="login-form">
                 <FormItem>
-                    {getFieldDecorator('userName', {
+                    {getFieldDecorator('username', {
                         rules: [
                             {
                                 required: true,
@@ -72,9 +90,15 @@ class NormalLoginForm extends React.Component {
     }
 }
 
-const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
+const NormalLoginFormWithProps = connect(
+   state => ({ state }),
+   dispatch => ({
+     actions: bindActionCreators(actionCreators, dispatch)}
+ ))(NormalLoginForm);
 
-export default class Login extends React.Component {
+const WrappedNormalLoginForm = Form.create()(NormalLoginFormWithProps);
+
+export default class Login extends Component {
     constructor(props) {
         super(props);
     }
