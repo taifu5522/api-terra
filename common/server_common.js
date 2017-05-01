@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: server_common.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-01 23:37:59
+ * @Last modified time: 2017-05-02 00:23:09
  */
 
 'use strict'
@@ -45,19 +45,21 @@ class ServerCommon extends Common {
      * 接口操作成功数据格式拼接
      * @params:err (捕捉到的错误)
      * @params:message (提示信息)
+     * @params:uniqueMessage (唯一性校验提示)（可选参数）
      */
-    static errHandle(err, message) {
+    static errHandle(err, message, uniqueMessage) {
+        uniqueMessage = uniqueMessage || "唯一性校验不通过";
         let result = R.clone(struct);
         if (err.code === 11000) {
-            result.status = 100;
-            result.message = "用户名已存在";
+            result.status = 101;
+            result.message = uniqueMessage;
         } else if (err.name === "ValidationError") {
             result.status = 100;
             result.err = err;
             result.message = connactErrMessage(err);
-        } else {
-            result.status = 200;
-            result.err = err;
+        } else if(err.code === 102) {
+            result.status = 102;
+            result.err = null;
             result.message = message;
         }
         return result;

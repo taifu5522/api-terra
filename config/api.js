@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: api.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-01 20:08:32
+ * @Last modified time: 2017-05-01 23:59:41
  */
 
 'use strict'
@@ -16,11 +16,11 @@ module.exports = {
         {
             url: '/api/user/register',
             service: 'register'
+        }, {
+            url: '/api/user/login',
+            service: 'login'
         }
         // , {
-        //     url: '/api/user/login',
-        //     service: 'login'
-        // }, {
         //     url: '/api/user/logout',
         //     service: 'logout'
         // }

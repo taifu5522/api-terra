@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: api.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-01 22:42:34
+ * @Last modified time: 2017-05-01 23:59:39
  */
 
 'use strict';
@@ -14,15 +14,13 @@ let api = {};
 
 class Api {
     constructor(props) {}
-    * register(next) {
-        console.log(this.query);
-        let userInfo = {};
-        userInfo.username= this.query.username;
-        userInfo.password= this.query.password;
-        userInfo.email= this.query.email;
-        userInfo.nickname= this.query.nickname;
-        this.body = yield dao.user.register(userInfo);
+    static * register(next) {
+        this.body = yield dao.user.register(this.query);
+    }
+    static * login(next) {
+        this.body = yield dao.user.login(this.query);
+
     }
 }
 
-module.exports = new Api();
+module.exports = Api;

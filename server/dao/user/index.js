@@ -5,28 +5,44 @@
  * @Project: terra
  * @Filename: base.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-01 23:36:35
+ * @Last modified time: 2017-05-02 00:26:19
  */
 
 'use strict'
 
 let model = require('../../db/model/models').userModel;
-let common = require('../../../common/server_common')
+let common = require('../../../common/server_common');
+let R = require('ramda');
 
-let register = function * (userInfo) {
-
-    let userEntity = new model(userInfo);
-
-    try {
-        yield userEntity.save();
-        return common.successHandle(true, '注册成功');
-    } catch (e) {
-        return common.errHandle(e, "注册失败");
-    }
-};
-
-module.exports = {
+let userDao = {
     user: {
-        register: register
+        register: function * (userInfo) {
+
+            let userEntity = new model(userInfo);
+
+            try {
+                yield userEntity.save();
+                return common.successHandle(true, '注册成功');
+            } catch (e) {
+                return common.errHandle(e, "注册失败", "用户已存在");
+            }
+        },
+        login: function * (loginInfo) {
+            try {
+                let result = yield model.find(loginInfo);
+                console.log(result);
+                if (R.isEmpty(result)) {
+                    return common.errHandle({
+                        code: 102
+                    }, "用户名或密码错误");
+                } else {
+                    return common.successHandle(true, '登录成功');
+                }
+            } catch (e) {
+                return common.errHandle(e, "登录失败");
+            }
+        }
     }
-};
+}
+
+module.exports = userDao;
