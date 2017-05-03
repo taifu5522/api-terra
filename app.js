@@ -27,10 +27,15 @@ let webpackHotMiddleware = require('koa-webpack-hot-middleware');
 let config = require('./webpack.config')
 let compiler = webpack(config);
 
+//db
+let dao = require('./db/main.js');
+//let db = new dao();
+
 let getApi = require('./middlewares/index').getApi;
 
 let staticServer = require('koa-static');
 app.use(staticServer(__dirname + '/lib'));
+
 
 app.use(getApi);
 
