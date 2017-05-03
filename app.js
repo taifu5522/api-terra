@@ -56,19 +56,7 @@ app.use(function * (next) {
 
 app.use(logger());
 
-<<<<<<< HEAD
-//绑定db
-app.use(function *(next){
-    this.db = dao;
-    yield next;
-})
-
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
-=======
 app.use(router.routes()).use(router.allowedMethods());
->>>>>>> 3a086b12d2fd8e9c9a07fc0de05dd126beebb398
 
 //listen
 
