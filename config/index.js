@@ -7,7 +7,10 @@ module.exports = {
     },
     //数据库
     mongo: {
-        url: 'mongodb://127.0.0.1:27017/activity'
+        url: 'mongodb://127.0.0.1:27017/api-terra',
+        prot:27017,
+        max:30,
+        min:5,
     },
     stateCodes:{
         success:200,

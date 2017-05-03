@@ -24,10 +24,15 @@ let webpackHotMiddleware = require('koa-webpack-hot-middleware');
 let config = require('./webpack.config')
 let compiler = webpack(config);
 
+//db
+let dao = require('./db/main.js');
+//let db = new dao();
+
 let getApi = require('./middlewares/index').getApi;
 
 var staticServer = require('koa-static');
 app.use(staticServer(__dirname + '/lib'));
+
 
 app.use(getApi);
 
@@ -47,6 +52,12 @@ app.use(function *(next){
 });
 
 app.use(logger());
+
+//绑定db
+app.use(function *(next){
+    this.db = dao;
+    yield next;
+})
 
 app
   .use(router.routes())
