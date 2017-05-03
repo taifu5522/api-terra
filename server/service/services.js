@@ -5,12 +5,13 @@
  * @Project: terra
  * @Filename: api.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-02 04:19:34
+ * @Last modified time: 2017-05-02 15:41:19
  */
 
 'use strict';
 let dao = require("../dao/daos");
 let api = {};
+let R = require('ramda');
 
 class Api {
     constructor(props) {}
@@ -19,7 +20,10 @@ class Api {
     }
     static * login(next) {
         var result = yield dao.user.login(this.request.fields);
-        this.cookies.set("userId", result.data);
+        if (!R.isNil(result.data)) {
+            this.cookies.set("userId", result.data, {maxAge: 1800000});
+            result.data = true;
+        }
         this.body = result;
     }
 }

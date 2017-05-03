@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: server_common.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-02 00:23:09
+ * @Last modified time: 2017-05-02 04:35:36
  */
 
 'use strict'
@@ -60,6 +60,10 @@ class ServerCommon extends Common {
         } else if(err.code === 102) {
             result.status = 102;
             result.err = null;
+            result.message = message;
+        }else{
+            result.status = 500;
+            result.err = err;
             result.message = message;
         }
         return result;
