@@ -5,17 +5,20 @@
  * @Project: terra
  * @Filename: app.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-04-20 19:02:51
+ * @Last modified time: 2017-05-02 03:28:14
  */
-
-
 
 'use strict';
 
 let koa = require('koa');
 let app = koa();
 let router = require('./routes/router').router;
-var logger = require('koa-logger')
+let logger = require('koa-logger')
+let koaBody = require('koa-better-body');
+//支持x-www-form-urlencoded
+//支持form-data
+app.use(koaBody());
+
 
 //webpack hot dev server
 let webpack = require('webpack');
@@ -30,29 +33,30 @@ let dao = require('./db/main.js');
 
 let getApi = require('./middlewares/index').getApi;
 
-var staticServer = require('koa-static');
+let staticServer = require('koa-static');
 app.use(staticServer(__dirname + '/lib'));
 
 
 app.use(getApi);
 
-//use webpack
+// use webpack
 app.use(webpackDevMiddleware(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
+    noInfo: true,
+    publicPath: config.output.publicPath
 }));
 app.use(webpackHotMiddleware(compiler));
 
 // time
-app.use(function *(next){
-  var start = new Date;
-  yield next;
-  var ms = new Date - start;
-  this.set('X-Response-Time', ms + 'ms');
+app.use(function * (next) {
+    let start = new Date;
+    yield next;
+    let ms = new Date - start;
+    this.set('X-Response-Time', ms + 'ms');
 });
 
 app.use(logger());
 
+<<<<<<< HEAD
 //绑定db
 app.use(function *(next){
     this.db = dao;
@@ -62,6 +66,9 @@ app.use(function *(next){
 app
   .use(router.routes())
   .use(router.allowedMethods());
+=======
+app.use(router.routes()).use(router.allowedMethods());
+>>>>>>> 3a086b12d2fd8e9c9a07fc0de05dd126beebb398
 
 //listen
 

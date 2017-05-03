@@ -5,12 +5,100 @@
  * @Project: terra
  * @Filename: login.jsx
  * @Last modified by:   ceekey
- * @Last modified time: 2017-04-27 18:03:33
+ * @Last modified time: 2017-05-02 03:10:09
  */
 
-import React, {Component} from 'react';
+ 'use strict'
 
-export default class Demo extends React.Component {
+import React, {Component,PropTypes} from 'react';
+import "../../css/antd.min.css";
+import "../../css/user/login.css";
+import {Form, Icon, Input, Button, Checkbox} from 'antd';
+
+import * as actionCreators from '../../Redux/Action/action.js';
+import { bindActionCreators } from 'redux';
+import { connect, Provider } from 'react-redux';
+
+const FormItem = Form.Item;
+
+
+const propTypes = {
+  state: PropTypes.object.isRequired,
+  actions: PropTypes.object.isRequired,
+};
+
+
+
+class NormalLoginForm extends Component {
+    constructor(props){
+        super(props);
+        this.handleSubmit=this.handleSubmit.bind(this);
+    }
+    handleSubmit(e){
+    e.preventDefault();
+     console.log(this.props);
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+        this.props.actions.login(values);
+      }
+    });
+  }
+    render() {
+        const {getFieldDecorator} = this.props.form;
+        const {actions,state} = this.props;
+        return (
+            <Form id="components-form-demo-normal-login"  onSubmit={this.handleSubmit} className="login-form">
+                <FormItem>
+                    {getFieldDecorator('username', {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please input your username!'
+                            }
+                        ]
+                    })(
+                        <Input prefix={< Icon type = "user" style = {{ fontSize: 13 }}/>} placeholder="Username"/>
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('password', {
+                        rules: [
+                            {
+                                required: true,
+                                message: 'Please input your Password!'
+                            }
+                        ]
+                    })(
+                        <Input prefix={< Icon type = "lock" style = {{ fontSize: 13 }}/>} type="password" placeholder="Password"/>
+                    )}
+                </FormItem>
+                <FormItem>
+                    {getFieldDecorator('remember', {
+                        valuePropName: 'checked',
+                        initialValue: true
+                    })(
+                        <Checkbox>Remember me</Checkbox>
+                    )}
+                    <a className="login-form-forgot" href="">Forgot password</a>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                        Log in
+                    </Button>
+                </FormItem>
+            </Form>
+        );
+    }
+}
+
+const NormalLoginFormWithProps = connect(
+   state => ({ state }),
+   dispatch => ({
+     actions: bindActionCreators(actionCreators, dispatch)}
+ ))(NormalLoginForm);
+
+const WrappedNormalLoginForm = Form.create()(NormalLoginFormWithProps);
+
+export default class Login extends Component {
     constructor(props) {
         super(props);
     }
@@ -18,7 +106,7 @@ export default class Demo extends React.Component {
         particlesJS('particles-js', {
             "particles": {
                 "number": {
-                    "value": 110,
+                    "value": 200,
                     "density": {
                         "enable": true,
                         "value_area": 800
@@ -53,7 +141,7 @@ export default class Demo extends React.Component {
                     }
                 },
                 "size": {
-                    "value": 1,
+                    "value": 2,
                     "random": true,
                     "anim": {
                         "enable": false,
@@ -64,7 +152,7 @@ export default class Demo extends React.Component {
                 },
                 "line_linked": {
                     "enable": true,
-                    "distance": 40,
+                    "distance": 80,
                     "color": "#fff",
                     "opacity": 1,
                     "width": 1
@@ -135,7 +223,12 @@ export default class Demo extends React.Component {
     }
     render() {
         return (
-            <div id="particles-js"></div>
+            <div className="user-content">
+                <div id="particles-js"></div>
+                <div className="user-info">
+                    <WrappedNormalLoginForm/>
+                </div>
+            </div>
         );
     }
 }
