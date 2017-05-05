@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: app.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-03 14:08:17
+ * @Last modified time: 2017-05-05 13:54:21
  */
 
 'use strict';
@@ -26,7 +26,6 @@ let webpackDevMiddleware = require('koa-webpack-dev-middleware');
 let webpackHotMiddleware = require('koa-webpack-hot-middleware');
 let config = require('./webpack.config')
 let compiler = webpack(config);
-
 
 let getApi = require('./middlewares/index').getApi;
 
