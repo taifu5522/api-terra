@@ -26,6 +26,9 @@ class Api {
         }
         this.body = result;
     }
+    static * savedoc(){
+        var result = yield dao.doc.save(this.query.doc);
+    }
 }
 
 module.exports = Api;
