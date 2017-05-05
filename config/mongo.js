@@ -5,14 +5,14 @@
  * @Project: terra
  * @Filename: mongodb.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-01 18:03:50
+ * @Last modified time: 2017-05-03 16:17:59
  */
 'use strict'
 
 module.exports = {
-    //王旭-ECS
-    // url: 'mongodb://120.27.158.158:27017/virtualService',
-    //王旭-local
+    //ECS
+    //url: 'mongodb://120.27.158.158:27017/virtualService',
+    //local
     url: 'mongodb://127.0.0.1/virtualService',
     options: {
         server: {
