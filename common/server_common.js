@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: server_common.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-02 04:35:36
+ * @Last modified time: 2017-05-05 11:46:29
  */
 
 'use strict'
@@ -68,7 +68,6 @@ class ServerCommon extends Common {
         }
         return result;
     }
-
 }
 
 module.exports = ServerCommon;

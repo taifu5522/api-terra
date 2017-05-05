@@ -5,50 +5,49 @@
  * @Project: terra
  * @Filename: login.jsx
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-02 03:10:09
+ * @Last modified time: 2017-05-05 11:55:18
  */
 
- 'use strict'
+'use strict'
 
-import React, {Component,PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import "../../css/antd.min.css";
 import "../../css/user/login.css";
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
 
 import * as actionCreators from '../../Redux/Action/action.js';
-import { bindActionCreators } from 'redux';
-import { connect, Provider } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {connect, Provider} from 'react-redux';
+const common = require('../../../common/common');
 
 const FormItem = Form.Item;
 
-
 const propTypes = {
-  state: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired,
+    state: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
 };
 
-
-
 class NormalLoginForm extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleSubmit(e){
-    e.preventDefault();
-     console.log(this.props);
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-        this.props.actions.login(values);
-      }
-    });
-  }
+    handleSubmit(e) {
+        e.preventDefault();
+        console.log(this.props);
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                values.password = common.encryptPassword(values.password);
+                console.log('Received values of form: ', values);
+                this.props.actions.login(values);
+            }
+        });
+    }
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {actions,state} = this.props;
+        const {actions, state} = this.props;
         return (
-            <Form id="components-form-demo-normal-login"  onSubmit={this.handleSubmit} className="login-form">
+            <Form id="components-form-demo-normal-login" onSubmit={this.handleSubmit} className="login-form">
                 <FormItem>
                     {getFieldDecorator('username', {
                         rules: [
@@ -90,11 +89,9 @@ class NormalLoginForm extends Component {
     }
 }
 
-const NormalLoginFormWithProps = connect(
-   state => ({ state }),
-   dispatch => ({
-     actions: bindActionCreators(actionCreators, dispatch)}
- ))(NormalLoginForm);
+const NormalLoginFormWithProps = connect(state => ({state}), dispatch => ({
+    actions: bindActionCreators(actionCreators, dispatch)
+}))(NormalLoginForm);
 
 const WrappedNormalLoginForm = Form.create()(NormalLoginFormWithProps);
 
