@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: login.jsx
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-05 11:55:18
+ * @Last modified time: 2017-05-25 11:21:34
  */
 
 'use strict'
@@ -15,7 +15,7 @@ import "../../css/antd.min.css";
 import "../../css/user/login.css";
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
 
-import * as actionCreators from '../../Redux/Action/action.js';
+import * as actionCreators from '../../redux/action/action.js';
 import {bindActionCreators} from 'redux';
 import {connect, Provider} from 'react-redux';
 const common = require('../../../common/common');

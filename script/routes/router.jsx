@@ -5,18 +5,18 @@
  * @Project: terra
  * @Filename: router.jsx
  * @Last modified by:   ceekey
- * @Last modified time: 2017-04-27 17:16:21
+ * @Last modified time: 2017-05-25 11:19:32
  */
 
 
 
 import React from 'react';
 
-//router
 import { Router, Route, Link, hashHistory } from 'react-router';
 
 import Demo from '../pages/demo.jsx';
 import Login from '../pages/user/login.jsx';
+import Register from '../pages/user/register.jsx';
 
 
 export default class Routers extends React.Component{
@@ -28,6 +28,7 @@ export default class Routers extends React.Component{
             <Router history={hashHistory}>
                 <Route path="/" component={Demo}/>
                 <Route path="/login" component={Login}/>
+                <Route path="/register" component={Register}/>
             </Router>
         )
     }

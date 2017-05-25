@@ -5,15 +5,9 @@
  * @Project: terra
  * @Filename: action.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-02 04:21:44
+ * @Last modified time: 2017-05-25 11:19:45
  */
 
-// export const ADD_TODO = {
-// 	type: 'ADD_TODO'
-// };
-// export const ADD_TODO_STATE = {
-// 	age: 0
-// };
 import 'babel-polyfill'
 import fetch from 'isomorphic-fetch'
 

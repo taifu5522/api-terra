@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: common.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-05 11:44:53
+ * @Last modified time: 2017-05-08 10:48:47
  */
 
 'use strict'
@@ -36,6 +36,11 @@ class Common {
             unEncryptResult += String.fromCharCode(v.charCodeAt() - 5);
         })(password);
         return unEncryptResult;
+    }
+    static isType(obj, type) {
+        return type
+            ? Object.prototype.toString.call(obj) === '[object ' + type + ']'
+            : Object.prototype.toString.call(obj).split(' ')[1].split(']')[0];
     }
 }
 

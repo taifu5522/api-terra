@@ -5,7 +5,7 @@
  * @Project: terra
  * @Filename: base.js
  * @Last modified by:   ceekey
- * @Last modified time: 2017-05-05 13:50:39
+ * @Last modified time: 2017-05-25 10:59:17
  */
 
 'use strict'
@@ -49,7 +49,7 @@ let userDao = {
                     username: loginInfo.username,
                     password: md5(common.unEncryptPassword(loginInfo.password))
                 });
-                if (R.isEmpty(result)) {
+                if (R.isEmpty(result) || result === null) {
                     return common.errHandle({
                         code: 102
                     }, "用户名或密码错误");
