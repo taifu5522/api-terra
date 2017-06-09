@@ -11,7 +11,9 @@
 'use strict';
 
 let userSchema = require('./user/user_schema');
+let docSchema = require('./doc/doc_schema');
 
 module.exports = {
-    userSchema: userSchema
+    userSchema: userSchema,
+    docSchema: docSchema
 };

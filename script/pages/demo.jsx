@@ -229,7 +229,7 @@ export default class Demo extends React.Component {
         if(!name){return message.error('请输入接口名称!')};
         let api = {
             name:name,
-            data:this.dataStore.getData()
+            element:this.dataStore.getData()
         }
 
         fetch(`/doc/save?api=${JSON.stringify(api)}`).then(res=>res.json()).then(data=>{

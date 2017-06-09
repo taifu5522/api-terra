@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --hot",
-    "app": "supervisor --harmony app.js"
+    "app": "supervisor --harmony app.js",
+    "mongod": "mongod",
+    "redis-mac": "redis-server /usr/local/etc/redis.conf"
   },
   "author": "",
   "license": "ISC",

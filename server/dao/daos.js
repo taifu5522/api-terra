@@ -17,6 +17,7 @@ let dao = {};
 let user = require('./user/index');
 let doc = require('./doc/index');
 
-dao = R.merge(dao,user,doc);
+dao = R.merge(dao,user);
+dao = R.merge(dao,doc);
 
 module.exports = dao;

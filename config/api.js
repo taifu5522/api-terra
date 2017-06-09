@@ -11,7 +11,12 @@
 'use strict'
 
 module.exports = {
-    getApi: [],
+    getApi: [
+        {
+            url: '/doc/save',
+            service: 'doc_save'
+        }
+    ],
     postApi: [
         {
             url: '/api/user/register',

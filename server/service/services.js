@@ -27,8 +27,8 @@ class Api {
         }
         this.body = result;
     }
-    static * savedoc(){
-        var result = yield dao.doc.save(this.query.doc);
+    static * doc_save(next){
+        this.body = yield dao.docAccess.save(this.query.api);
     }
 }
 

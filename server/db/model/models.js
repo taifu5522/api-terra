@@ -15,7 +15,9 @@ let db = require('../database');
 
 //用户model
 let userModel = require('./user/user_model');
+let docModel = require('./doc/doc-model');
 
 module.exports = {
-    userModel: userModel
+    userModel: userModel,
+    docModel: docModel
 };
