@@ -12,7 +12,7 @@
 
 let mongoConfig = require('./mongo');
 let redisConfig = require('./redis');
-let apiConfig = require('./api');
+let apiConfig = require('./api/api');
 
 module.exports = {
     //database-mongodb

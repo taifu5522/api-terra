@@ -9,9 +9,11 @@
  */
 
 'use strict';
-let dao = require("../dao/daos");
-let api = {};
-let R = require('ramda');
+const dao = require("../dao/daos");
+const api = {};
+const R = require('ramda');
+const fs = require('co-fs');
+const path = require('path');
 
 class Api {
     constructor(props) {}
@@ -29,6 +31,10 @@ class Api {
     }
     static * doc_save(next){
         this.body = yield dao.docAccess.save(this.query.api);
+    }
+    static * browser_api(next){
+        const body = yield fs.readFile(path.resolve(__dirname,'../../lib/index.html'));
+        this.body = body.toString('utf-8')
     }
 }
 

@@ -10,12 +10,15 @@
 
 'use strict'
 
+const browser_routers = require('./browser');
+
 module.exports = {
     getApi: [
         {
             url: '/doc/save',
             service: 'doc_save'
-        }
+        },
+        ...browser_routers
     ],
     postApi: [
         {

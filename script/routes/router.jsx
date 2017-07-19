@@ -12,7 +12,7 @@
 
 import React from 'react';
 
-import { Router, Route, Link, hashHistory } from 'react-router';
+import { Router, Route, Link, browserHistory } from 'react-router';
 
 import Demo from '../pages/demo.jsx';
 import Login from '../pages/user/login.jsx';
@@ -25,7 +25,7 @@ export default class Routers extends React.Component{
     }
     render(){
         return (
-            <Router history={hashHistory}>
+            <Router history={browserHistory}>
                 <Route path="/" component={Demo}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/register" component={Register}/>
